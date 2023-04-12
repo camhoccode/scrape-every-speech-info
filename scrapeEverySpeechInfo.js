@@ -4,8 +4,6 @@ const functions = require("./functions");
 const fs = require("fs");
 const colors = require("colors");
 
-// const request = ("request-promise");
-
 let allSpeechLinks = [];
 
 // const url =
@@ -32,13 +30,11 @@ async function loopEachPage(urlFinal) {
 
   //extract the info of each speech link input
   for (let i = 0; i < allSpeechLinks.length; i++) {
-    // for (let i = 0; i <= 3; i++) {
     const result = await functions.getAudioLinkDown(allSpeechLinks[i]);
     await allData.push(result);
     console.log(`Success speech info number ${i + 1} in current page`);
   }
   allSpeechLinks = [];
-  // console.log(allData);
 }
 
 async function crawlAllPage() {
@@ -54,7 +50,7 @@ async function crawlAllPage() {
 
 async function saveToJson(array) {
   const outJSON = await JSON.stringify(array);
-  await fs.writeFile("output.json", outJSON, function (err) {
+  fs.writeFile("output.json", outJSON, function (err) {
     if (err) throw err;
     console.log("Output saved to output.json");
   });
