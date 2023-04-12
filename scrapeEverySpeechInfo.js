@@ -13,7 +13,7 @@ async function crawlAllLinkSpeech(url) {
   const res = await axios.get(url);
   const html = await res.data;
   const $ = await cheerio.load(html);
-  await $("div.C234 > div > a").each((idex, element) => {
+  $("div.C234 > div > a").each((idex, element) => {
     // get all the speech links if not contain 'ambient' in the title
     const link = "https://archive.org" + $(element).attr("href");
     allSpeechLinks.push(link);
@@ -49,7 +49,7 @@ async function crawlAllPage() {
 }
 
 async function saveToJson(array) {
-  const outJSON = await JSON.stringify(array);
+  const outJSON = JSON.stringify(array);
   fs.writeFile("output.json", outJSON, function (err) {
     if (err) throw err;
     console.log("Output saved to output.json");
